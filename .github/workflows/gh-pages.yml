@@ -29,13 +29,18 @@ jobs:
       - name: Publish
         run: dotnet publish LoumTechnologiesWebsite.sln -c:Release -o:publish -p:GHPages=true
 
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: publish/wwwroot
 
-      # Deploy the site
-      - name: Deploy
-        id: deployment
-        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
-        with:
-          artifact_name: gh-pages
+# Deployment job
+deploy:
+  environment:
+    name: github-pages
+    url: ${{ steps.deployment.outputs.page_url }}
+  runs-on: ubuntu-latest
+  needs: build
+  steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
