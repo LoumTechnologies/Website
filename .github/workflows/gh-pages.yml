@@ -29,9 +29,8 @@ jobs:
       - name: Publish
         run: dotnet publish LoumTechnologiesWebsite.sln -c:Release -o:publish -p:GHPages=true
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-pages-artifact@v1
         with:
-          name: gh-pages
           path: publish/wwwroot
 
       # Deploy the site
