@@ -24,10 +24,14 @@ jobs:
       - name: Publish
         run: dotnet publish LoumTechnologiesWebsite.sln -c:Release -o:publish -p:GHPages=true
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gh-pages
+          path: publish/wwwroot
+
       # Deploy the site
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
+        id: deployment
+        uses: actions/deploy-pages@v4 # or specific "vX.X.X" version tag for this action
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: publish/wwwroot
-          force_orphan: true
+          artifact_name: gh-pages
