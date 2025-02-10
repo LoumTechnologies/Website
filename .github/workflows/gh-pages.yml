@@ -27,7 +27,7 @@ jobs:
 
       # Publish the site
       - name: Publish
-        run: dotnet publish LoumTechnologiesWebsite.sln -c:Release -o:publish -p:GHPages=true
+        run: dotnet publish LoumTechnologiesWebsite.sln -c:Release -o:publish
 
       - uses: actions/upload-pages-artifact@v3
         with:
